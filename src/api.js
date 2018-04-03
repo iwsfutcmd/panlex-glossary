@@ -1,0 +1,1 @@
+../../panlex-translator/src/api.js

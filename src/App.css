@@ -1,0 +1,57 @@
+.App {
+  text-align: center;
+  --mdc-theme-primary: #C82521;
+  --mdc-theme-primary-dark: #700000;
+  margin-block-end: 500px;
+
+}
+
+.App header {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  background-color: var(--mdc-theme-primary);
+  align-items: center;
+}
+
+.App header img {
+  margin-inline-start: 12px;
+  padding-block-start: 8px;
+  padding-block-end: 8px;
+  display: block;
+}
+
+.App header span {
+  font-size: x-large;
+  color: white;
+  font-weight: bold;
+  margin-inline-start: 12px;
+}
+
+.trn-table {
+  display: grid;
+}
+
+.trn-table div {
+  border: solid black 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trn-header {
+  top: 0;
+  position: sticky;
+  background-color: var(--mdc-theme-primary-dark);
+  font-weight: bold;
+  color: white;
+}
+
+.trn-table input {
+  text-align: center;
+  min-inline-size: 0;
+}
+
+.trn-table .ex-al {
+  background-color: lightgrey;
+}
