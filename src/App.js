@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { query, getNormTranslations } from './api';
 import { START_EXPRS, INITIAL_UIDDE, INITIAL_UIDAL, UID_NAMES } from "./constants";
+import { FONT_NAMES, FONT_URLS } from "./fonts";
 import logo from './logo.png';
 
 // const zip = (arr, ...arrs) => {
@@ -49,39 +50,6 @@ class App extends Component {
     });
   }
 
-  // populate = uidAl => {
-  //   let exprs = this.state.exprs;
-  //   let t = this.state.uidDe.map(uidDe => (
-  //     getNormTranslations(exprs[uidDe].map(w => w[0].txt), this.getLvId(uidDe), this.getLvId(uidAl)).then(r => {
-  //       let lvObj = {};
-  //       let output = [];
-  //       r.forEach(o => {if (!lvObj[o.trans_txt]) {lvObj[o.trans_txt] = []}; lvObj[o.trans_txt].push({txt: o.txt, score: o.norm_quality})})
-  //       exprs[uidDe].forEach((e, i) => {
-  //         // exprs[uidAl][i] = lvObj[e[0].txt] ? lvObj[e[0].txt] : [{}];
-  //         output[i] = lvObj[e[0].txt] ? lvObj[e[0].txt] : [{}];
-  //       });
-  //       // this.setState({exprs});
-  //       return(output);
-  //     }))
-  //   );
-  //   Promise.all(t).then(r => {
-  //     zip(...r).forEach((x, i) => {
-  //       let exSet = {};
-  //       x.forEach(y => {
-  //         y.forEach(z => {
-  //           if (z.txt && exSet[z.txt]) {
-  //             exSet[z.txt] += z.score;
-  //           } else if (z.txt) {
-  //             exSet[z.txt] = z.score;
-  //           }
-  //         })
-  //       })
-  //       exprs[uidAl][i] = Object.entries(exSet).sort((a,b) => b[1] - a[1]).map(a => ({txt: a[0], score: a[1]}));
-  //     });
-  //     this.setState({exprs});
-  //   });
-  // }
-
   populateMn = meaningNum => {
     let meanings = this.state.meanings;
     let meaning = meanings[meaningNum];
@@ -128,8 +96,12 @@ class App extends Component {
     return(this.state.uidCache[uid].id);
   }
 
+  getScript = uid => {
+    return(this.state.uidCache[uid] && this.state.uidCache[uid].script_expr_txt);
+  }
+
   cacheUids = uid => {
-    return(query("/langvar", {uid}).then(r => {
+    return(query("/langvar", {uid, include: ["script_expr_txt"]}).then(r => {
       let uidCache = this.state.uidCache;
       r.result.forEach(lv => {
         uidCache[lv.uid] = lv;
@@ -141,6 +113,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        {[...(new Set(this.state.uids.map(uid => this.getScript(uid))))].map((script, i) => (
+          <link key={i} href={FONT_URLS[script]} rel="stylesheet"/>
+        ))}
         <header>
           <a id="logo" href="https://panlex.org">
             <img src={logo} alt={this.props.panlexLabel}/>
@@ -156,6 +131,7 @@ class App extends Component {
               <div 
                 key={((mnIndex + 1) * this.state.uids.length) + uidIndex}
                 className={uidIndex < this.state.uidDe.length ? "ex-de" : "ex-al"}
+                style={{fontFamily: `${FONT_NAMES[this.getScript(uid)]}, sans-serif`}}
               >
                 {meaning[uid][0] && meaning[uid][0].txt}
               </div>

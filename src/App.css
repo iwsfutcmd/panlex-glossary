@@ -54,5 +54,12 @@
 
 .trn-table .ex-al {
   background-color: lightgrey;
-  font-family: 'Padauk', sans-serif;
+}
+
+.trn-table .Mymr {
+  font-family: 'Noto Sans Myanmar', sans-serif;
+}
+
+.trn-table .Ethi {
+  font-family: 'Noto Sans Ethiopic', sans-serif;
 }

@@ -44,7 +44,6 @@ export const START_EXPRS = [
 export const INITIAL_UIDDE = [
     "eng-000",
     "spa-000",
-    // "fra-000",
 ]
 
 export const INITIAL_UIDAL = [
@@ -53,6 +52,7 @@ export const INITIAL_UIDAL = [
     "mya-000",
     "pes-000",
     "yua-000",
+    "hye-000",
 ]
 
 export const UID_NAMES = {
@@ -67,4 +67,5 @@ export const UID_NAMES = {
     "fra-000": "French",
     "pbu-000": "Pashto",
     "yua-000": "Yucatec Maya",
+    "hye-000": "Armenian",
 }
